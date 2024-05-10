@@ -1,0 +1,6 @@
+@AspnetCoreJwt_HostAddress = http://localhost:5227
+
+GET {{AspnetCoreJwt_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
