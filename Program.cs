@@ -1,9 +1,9 @@
 using System.Text;
 using AspnetCoreJwt.Models;
+using AspnetCoreJwt.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
+builder.Services.AddTransient<IAuthService, AuthService>();
 
 // Database Context
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=AspNetCoreJwt.db"));
