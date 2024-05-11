@@ -1,6 +1,6 @@
 using System.Text;
 using AspnetCoreJwt.Models;
-using AspnetCoreJwt.Repositories;
+using AspnetCoreJwt.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
 using AspnetCoreJwt.Models;
-using AspnetCoreJwt.Repositories;
+using AspnetCoreJwt.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspnetCoreJwt.Controllers;
@@ -21,6 +21,8 @@ public class AuthenticationController : ControllerBase
         try
         {
             (int status, string message) = await _authService.Register(model, UserRoles.User);
+            // For Admin
+            // (int status, string message) = await _authService.Register(model, UserRoles.Admin);
             if (status == 1)
             {
                 return Ok(new { model.Email, model.Name });
@@ -37,5 +39,26 @@ public class AuthenticationController : ControllerBase
         }
     }
 
+    [HttpPost("/login")]
+    public async Task<IActionResult> Login(LoginModel model)
+    {
+        try
+        {
+            (int status, string message) = await _authService.Login(model);
+            if (status == 1)
+            {
+                return Ok(new LoginResponse(AccessToken: message));
+            }
+            else
+            {
+                return BadRequest(message);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, "Something went wrong");
+        }
+    }
 
 }
